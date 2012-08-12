@@ -1,6 +1,5 @@
 package koordynator;
 
-import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
@@ -11,8 +10,8 @@ public class Wiersz {
     String wiersz;
     boolean koordynaty, zdjecie, commons;
     
-    public Wiersz(String wiersz) {
-        this.wiersz = wiersz;
+    public Wiersz(String s) {
+        wiersz = s;
         Pattern p,q;
         
         p = Pattern.compile("koordynaty");
@@ -23,6 +22,11 @@ public class Wiersz {
             p = Pattern.compile("koordynaty *= *\n");
             q = Pattern.compile("szerokość *= *\n");
             koordynaty = (p.matcher(wiersz).find() || q.matcher(wiersz).find()) ? false : true;
+        } else {
+            /*
+             * Wstawianie wierszy koordów, skoro nie ma...
+             */
+            wiersz = wiersz.replaceAll(" *\\| *zdjęcie", "| szerokość = \n| długość   =\n| zdjęcie");
         }
 
 //        p = Pattern.compile("koordynaty *= *\n");
@@ -99,13 +103,6 @@ public class Wiersz {
     public void zapiszKoordynaty(float N, float E) throws Exception {
         if(wiersz.contains("koordynaty")) {
             wiersz = wiersz.replaceAll(" *\\| *koordynaty *= *", "| szerokość = " + N + "\n| długość   = " + E);
-//                String temp[] = wiersz.split("\n");
-//                for(String i : temp) {
-//                    if(i.contains("koordynaty")) {
-//                        i = i.replaceAll(" *\\| *commons *= *", "");
-//                        break;
-//                    }
-//                }
         } else if(wiersz.contains("szerokość") && wiersz.contains("długość")) {
             wiersz = wiersz.replaceAll(" *\\| *szerokość *= *", "| szerokość = " + N);
             wiersz = wiersz.replaceAll(" *\\| *długość *= *", "| długość   = " + N);

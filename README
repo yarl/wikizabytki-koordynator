@@ -1,0 +1,17 @@
+Program s³u¿y pó³automatycznemu uzupe³nianiu wspó³rzêdnych w tabelkach Wiki Lubi Zabytki na Wikipedii.
+
+Obs³uga
+---------------------------------------------
+UWAGA: Program jest pó³automatyczny nie bez powodu. Przed edycj¹ najpierw poœwiêæ minutê aby sprawdziæ, czy wszytkie mo¿liwe grafiki oraz linki do Commons zosta³y dodane na stronê.
+
+1. Wpisz nazwê artyku³u z tabelkami
+2. Zaloguj siê (jeœli chcesz wykonaæ edycjê)
+3. Wciœnij start. W oknie zobaczysz log z operacji
+4. Jeœli bêdzie co zapisaæ zostaniesz poproszony o wciœniêcie 'Zapisz'. Najpierw przejrzyj czy wszystko jest raczej OK.
+5. To tyle.
+
+Licencja
+---------------------------------------------
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+
+License text: http://www.gnu.org/licenses/gpl.txt

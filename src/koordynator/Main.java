@@ -156,7 +156,7 @@ public class Main extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bSave)
                 .addContainerGap())
@@ -217,7 +217,7 @@ public class Main extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(tPage, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                .addComponent(tPage, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bOpen)
                 .addContainerGap())
@@ -257,8 +257,8 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -294,7 +294,7 @@ public class Main extends javax.swing.JFrame {
     private void bSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveActionPerformed
         if(login) {
             try {
-                wikipedia.edit(tPage.getText(), output, "zmiana");
+                wikipedia.edit(tPage.getText(), output, "aktualizacja współrzędnych (koordynator)");
                 bSave.setEnabled(false);
                 log("[info] Zmiany zapisane\n");
             } catch (LoginException ex) {
@@ -323,11 +323,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bLoginActionPerformed
 
     private void Start() {
-//        if(tLogin.getText().isEmpty() || tPass.getPassword().length==0)
-//            log("[błąd] Podaj login i hasło\n");
-//        else {
             toEdit = 0;
             stopRq = false;
+            
             Runnable run = new Runnable() {
                 @Override
                 public void run() {
@@ -574,39 +572,28 @@ public class Main extends javax.swing.JFrame {
                                 /*
                                  * Jest coś do zapisania
                                  */
-                                if(toEdit>0 && !stopRq) {
-                                    for(Wiersz w : text)
-                                        output += w.zwrocWiersz();
-
-                                    log("\n[info] Koniec pracy. Zapisać " + toEdit + " zmian?\n\n");
-                                    bSave.setEnabled(true);
-                                }
+                                if(stopRq)
+                                    log("\n[info] Praca przerwana\n\n");
                                 else {
-                                    if(!stopRq)
+                                    if(toEdit>0) {
+                                        for(Wiersz w : text)
+                                            output += w.zwrocWiersz();
+
+                                        log("\n[info] Koniec pracy. Zapisać " + toEdit + " zmian?\n\n");
+                                        bSave.setEnabled(true);
+                                    } else
                                         log("\n[info] Koniec pracy. Nic do roboty\n\n");
-                                    else
-                                        log("\n[info] Praca przerwana\n\n");
                                 }
-                                    
-
-                                
-                                
-
                             }
                         }
-                        
                     } catch (IOException ex) {
                         log("[błąd] Błąd: " + ex + "\n");
                         stopRq();
-                    } /*catch (FailedLoginException ex) {
-                        log("[błąd] Błąd logowania: " + ex.getLocalizedMessage() + "\n");
-                        stopRq();
                     }
-                */}
+                }
             };
             Thread t = new Thread(run);
             t.start();
-//        }
     }
     
     private void stopRq() {
