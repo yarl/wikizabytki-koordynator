@@ -316,6 +316,9 @@ public class Main extends javax.swing.JFrame {
             try {
                 wikipedia.login(tLogin.getText(), tPass.getPassword());
                 log("[info] Logowanie OK\n\n");
+                bLogin.setEnabled(false);
+                tLogin.setEnabled(false);
+                tPass.setEnabled(false);
                 login = true;
             } catch (IOException ex) {
                 log("[info] Błąd: "+ex.getLocalizedMessage()+"\n");
@@ -328,6 +331,8 @@ public class Main extends javax.swing.JFrame {
     private void Start() {
             toEdit = 0;
             stopRq = false;
+            
+            bStart.setEnabled(false);
             
             Runnable run = new Runnable() {
                 @Override
@@ -586,6 +591,7 @@ public class Main extends javax.swing.JFrame {
                                         bSave.setEnabled(true);
                                     } else
                                         log("\n[info] Koniec pracy. Nic do roboty\n\n");
+                                        stopRq();
                                 }
                             }
                         }
@@ -601,7 +607,7 @@ public class Main extends javax.swing.JFrame {
     
     private void stopRq() {
         stopRq = true;
-        
+        bStart.setEnabled(true);
     }
     
     public void log(String s) {
