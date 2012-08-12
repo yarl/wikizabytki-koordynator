@@ -130,6 +130,7 @@ public class Main extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         loger.setContentType("text/html");
+        loger.setEditable(false);
         loger.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
         loger.setText("<html><body style=\"font: 10pt Verdana\"></body>\r</html>\r");
         scroll.setViewportView(loger);
