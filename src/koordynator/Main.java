@@ -22,8 +22,10 @@ import javax.swing.text.StyleConstants;
 import org.wikipedia.Wiki;
 
 /**
- * 
+ * Koordynator
+ * @version 0.1
  * @author Paweł 'Yarl' Marynowski (yarl@o2.pl)
+ * @see https://github.com/yarl/wikizabytki-koordynator
  */
 public class Main extends javax.swing.JFrame {
     private volatile boolean stopRq = false;
@@ -36,7 +38,7 @@ public class Main extends javax.swing.JFrame {
     int toEdit = 0;
     
     public Main() {
-        super("Koordynator");
+        super("Koordynator 0.1");
         initComponents();
         
         /**
