@@ -36,6 +36,7 @@ public class Main extends javax.swing.JFrame {
     int toEdit = 0;
     
     public Main() {
+        super("Koordynator");
         initComponents();
         
         /**
@@ -294,9 +295,10 @@ public class Main extends javax.swing.JFrame {
     private void bSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveActionPerformed
         if(login) {
             try {
-                wikipedia.edit(tPage.getText(), output, "aktualizacja współrzędnych (koordynator)");
+                log("[info] Zapisywanie...\n");
+                wikipedia.edit(tPage.getText(), output, "uzupełnienie współrzędnych ([[Wikipedysta:Yarl/narzędzia#Koordynator|koordynator]])");
                 bSave.setEnabled(false);
-                log("[info] Zmiany zapisane\n");
+                log("[info] Zmiany zapisane\n\n");
             } catch (LoginException ex) {
                 log("[błąd] Zaloguj się\n");
             } catch (IOException ex) {
@@ -314,6 +316,7 @@ public class Main extends javax.swing.JFrame {
             try {
                 wikipedia.login(tLogin.getText(), tPass.getPassword());
                 log("[info] Logowanie OK\n\n");
+                login = true;
             } catch (IOException ex) {
                 log("[info] Błąd: "+ex.getLocalizedMessage()+"\n");
             } catch (FailedLoginException ex) {
