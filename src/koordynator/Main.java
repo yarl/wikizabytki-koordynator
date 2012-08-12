@@ -297,16 +297,23 @@ public class Main extends javax.swing.JFrame {
 
     private void bSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveActionPerformed
         if(login) {
-            try {
-                log("[info] Zapisywanie...\n");
-                wikipedia.edit(tPage.getText(), output, "uzupełnienie współrzędnych ([[Wikipedysta:Yarl/narzędzia#Koordynator|koordynator]])");
-                bSave.setEnabled(false);
-                log("[info] Zmiany zapisane\n\n");
-            } catch (LoginException ex) {
-                log("[błąd] Zaloguj się\n");
-            } catch (IOException ex) {
-                log("[info] Błąd: "+ex.getLocalizedMessage()+"\n");
-            } 
+            Runnable run = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        log("[info] Zapisywanie...\n");
+                        wikipedia.edit(tPage.getText(), output, "uzupełnienie współrzędnych ([[Wikipedysta:Yarl/narzędzia#Koordynator|koordynator]])");
+                        bSave.setEnabled(false);
+                        log("[info] Zmiany zapisane\n\n");
+                    } catch (LoginException ex) {
+                        log("[błąd] Zaloguj się\n");
+                    } catch (IOException ex) {
+                        log("[info] Błąd: "+ex.getLocalizedMessage()+"\n");
+                    }
+                }
+            };
+            Thread t = new Thread(run);
+            t.start();
         } else
             log("[błąd] Zaloguj się\n");
     }//GEN-LAST:event_bSaveActionPerformed
@@ -315,19 +322,26 @@ public class Main extends javax.swing.JFrame {
         if(tLogin.getText().isEmpty() || tPass.getPassword().length==0)
             log("[błąd] Podaj login i hasło\n");
         else {
-            log("[info] Logowanie do Wikipedii...\n");
-            try {
-                wikipedia.login(tLogin.getText(), tPass.getPassword());
-                log("[info] Logowanie OK\n\n");
-                bLogin.setEnabled(false);
-                tLogin.setEnabled(false);
-                tPass.setEnabled(false);
-                login = true;
-            } catch (IOException ex) {
-                log("[info] Błąd: "+ex.getLocalizedMessage()+"\n");
-            } catch (FailedLoginException ex) {
-                log("[info] Błąd logowania\n");
-            }            
+            Runnable run = new Runnable() {
+                @Override
+                public void run() {
+                    log("[info] Logowanie do Wikipedii...\n");
+                    try {
+                        wikipedia.login(tLogin.getText(), tPass.getPassword());
+                        log("[info] Logowanie OK\n\n");
+                        bLogin.setEnabled(false);
+                        tLogin.setEnabled(false);
+                        tPass.setEnabled(false);
+                        login = true;
+                    } catch (IOException ex) {
+                        log("[info] Błąd: "+ex.getLocalizedMessage()+"\n");
+                    } catch (FailedLoginException ex) {
+                        log("[info] Błąd logowania\n");
+                    }
+                }
+            };
+            Thread t = new Thread(run);
+            t.start();
         }
     }//GEN-LAST:event_bLoginActionPerformed
 
